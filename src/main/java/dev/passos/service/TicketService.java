@@ -3,6 +3,7 @@ package dev.passos.service;
 import dev.passos.entity.Ticket;
 import dev.passos.interfaces.TicketCRUD;
 import dev.passos.DAO.TicketDAOPostgres;
+import org.jetbrains.annotations.NotNull;
 
 public class TicketService implements TicketCRUD {
 
@@ -20,11 +21,16 @@ public class TicketService implements TicketCRUD {
      * @return
      */
     @Override
-    public Ticket createTicket(Ticket ticket) {
+    public Ticket createTicket(@NotNull Ticket ticket) {
         // verifications checks
+        if(ticket.getAmount() == 0){
+            throw new RuntimeException("Ticket amount should be greater than 0");
+        } else if(ticket.getDescription().length() == 0){
+            throw new RuntimeException("Ticket should always have a description");
+        }
 
         // create ticket in database
-        Ticket registeredTicket = TicketDAOPostgres.getDB().createTicket(ticket);
+        Ticket registeredTicket = TicketDAOPostgres.getTicketDAOPostgres().createTicket(ticket);
 
         return registeredTicket;
     }
@@ -35,16 +41,34 @@ public class TicketService implements TicketCRUD {
      */
     @Override
     public Ticket getTicket(int id) {
-        return null;
+        // verifications checks
+        if(id < 0){
+            throw new RuntimeException("Ticket id should be greater than 0");
+        }
+
+        // look up ticket by id
+        Ticket lookupTicket = TicketDAOPostgres.getTicketDAOPostgres().getTicket(id);
+
+        return lookupTicket;
     }
 
     /**
-     * @param id
+     * @param ticket
      * @return
      */
     @Override
-    public Ticket updateTicket(int id) {
-        return null;
+    public Ticket updateTicket(Ticket ticket) {
+        // verifications checks
+        if(ticket.getAmount() == 0){
+            throw new RuntimeException("Ticket amount should be greater than 0");
+        } else if(ticket.getDescription().length() == 0){
+            throw new RuntimeException("Ticket should always have a description");
+        }
+
+        // look up ticket by id
+        Ticket updatedTicket = TicketDAOPostgres.getTicketDAOPostgres().updateTicket(ticket);
+
+        return updatedTicket;
     }
 
     /**
@@ -53,6 +77,14 @@ public class TicketService implements TicketCRUD {
      */
     @Override
     public boolean deleteTicket(int id) {
-        return false;
+        // verifications checks
+        if(id < 0){
+            throw new RuntimeException("Ticket id should be greater than 0");
+        }
+
+        // look up ticket by id
+        boolean isDeleted = TicketDAOPostgres.getTicketDAOPostgres().deleteTicket(id);
+
+        return isDeleted;
     }
 }

@@ -7,6 +7,24 @@ public class Ticket {
     private String description = "";
     private boolean status = false;
 
+    // constructor w/ parameters
+    public Ticket(int amount, String description, boolean status){
+        this.amount = amount;
+        this.description = description;
+        this.status = status;
+    }
+
+    // constructor w/ parameters
+    public Ticket(int id, int amount, String description, boolean status){
+        this.id = id;
+        this.amount = amount;
+        this.description = description;
+        this.status = status;
+    }
+
+    // default constructor
+    public Ticket(){}
+
     // getters and setter
     public int getId() {
         return id;

@@ -14,9 +14,9 @@ public class Driver {
 
         // ## tickets endpoints ##
         app.post("/createTicket", ticketController.createTicket);
-        app.delete("/deleteTicket", ticketController.deleteTicket);
+        app.delete("/deleteTicket/{id}", ticketController.deleteTicket);
         app.put("/updateTicket",ticketController.updateTicket);
-        app.get("/getTicket",ticketController.getTicket);
+        app.get("/getTicket/{id}",ticketController.getTicket);
 
         // ## employees endpoints ##
 
