@@ -1,55 +1,53 @@
 package dev.passos.DAO;
 
+import dev.passos.entity.Employee;
 import dev.passos.entity.Ticket;
-import dev.passos.interfaces.TicketCRUD;
+import dev.passos.interfaces.EmployeeCRUD;
 import dev.passos.utility.DBConn;
 
 import java.sql.*;
 
-public class TicketDAOPostgres implements TicketCRUD {
+public class EmployeeDAOPostgres implements EmployeeCRUD {
+    private static EmployeeDAOPostgres employeeDAOPostgres = null;
 
-    private static TicketDAOPostgres ticketDAOPostgres = null;
-
-
-
-    public static TicketDAOPostgres getTicketDAOPostgres(){
-        if(ticketDAOPostgres == null){
-            ticketDAOPostgres = new TicketDAOPostgres();
+    public static EmployeeDAOPostgres getEmployeeDAOPostgres(){
+        if(employeeDAOPostgres == null){
+            employeeDAOPostgres = new EmployeeDAOPostgres();
         }
-        return ticketDAOPostgres;
+        return employeeDAOPostgres;
     }
-
     /**
-     * @param ticket
+     * @param employee
      * @return
      */
     @Override
-    public Ticket createTicket(Ticket ticket) {
+    public Employee createEmployee(Employee employee) {
         try(Connection connection = DBConn.getConnection()){
             // sql query
-            String sql = "INSERT INTO \"CompanyData\".tickets VALUES(default, ?, ?, ?, ?)";
+            String sql = "INSERT INTO \"CompanyData\".employees VALUES(default, ?, ?, ?, ?, ?)";
 
             PreparedStatement preparedStatement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            preparedStatement.setInt(1, ticket.getAmount());
-            preparedStatement.setString(2, ticket.getDescription());
-            preparedStatement.setBoolean(3, ticket.isStatus());
-            preparedStatement.setInt(4, ticket.getEmployee_id());
+            preparedStatement.setString(1, employee.getFirstName());
+            preparedStatement.setString(2, employee.getLastName());
+            preparedStatement.setString(3, employee.getPassword());
+            preparedStatement.setBoolean(4, employee.isManager());
+            preparedStatement.setString(5, employee.getEmail());
 
             // execute query command on DB
             preparedStatement.execute();
 
-            // return newly created ticket record
+            // return newly created employee record
             ResultSet resultSet = preparedStatement.getGeneratedKeys();
 
             // move head
             resultSet.next();
 
-            // get auto generated id, and assign to ticket
+            // get auto generated id, and assign to employee
             int generatedKey = resultSet.getInt("id");
-            ticket.setId(generatedKey);
+            employee.setId(generatedKey);
 
             //
-            return ticket;
+            return employee;
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -62,10 +60,10 @@ public class TicketDAOPostgres implements TicketCRUD {
      * @return
      */
     @Override
-    public Ticket getTicket(int id) {
+    public Employee getEmployee(int id) {
         try(Connection connection = DBConn.getConnection()){
             // sql query
-            String sql = "SELECT * FROM \"CompanyData\".tickets WHERE id=?";
+            String sql = "SELECT * FROM \"CompanyData\".employees WHERE id=?";
 
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setInt(1, id);
@@ -77,16 +75,17 @@ public class TicketDAOPostgres implements TicketCRUD {
             resultSet.next();
 
             // create ticket object with data
-            Ticket lookupTicket = new Ticket(
+            Employee lookupEmployee = new Employee(
                     resultSet.getInt("id"),
-                    resultSet.getInt("amount"),
-                    resultSet.getString("description"),
-                    resultSet.getBoolean("status"),
-                    resultSet.getInt("employee_id")
+                    resultSet.getString("firstName"),
+                    resultSet.getString("lastName"),
+                    resultSet.getString("password"),
+                    resultSet.getBoolean("isManager"),
+                    resultSet.getString("email")
             );
 
             //
-            return lookupTicket;
+            return lookupEmployee;
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -95,26 +94,28 @@ public class TicketDAOPostgres implements TicketCRUD {
     }
 
     /**
-     * @param ticket
+     * @param employee
      * @return
      */
     @Override
-    public Ticket updateTicket(Ticket ticket) {
+    public Employee updateEmployee(Employee employee) {
         try(Connection connection = DBConn.getConnection()){
             // sql query
-            String sql = "UPDATE \"CompanyData\".tickets SET amount=?, description=?, status=? WHERE id=?";
+            String sql = "UPDATE \"CompanyData\".employees SET \"firstName\"=?, \"lastName\"=?, password=?, \"isManager\"=?, email=? WHERE id=?";
 
             PreparedStatement preparedStatement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            preparedStatement.setInt(1, ticket.getAmount());
-            preparedStatement.setString(2, ticket.getDescription());
-            preparedStatement.setBoolean(3, ticket.isStatus());
-            preparedStatement.setInt(4, ticket.getId());
+            preparedStatement.setString(1, employee.getFirstName());
+            preparedStatement.setString(2, employee.getLastName());
+            preparedStatement.setString(3, employee.getPassword());
+            preparedStatement.setBoolean(4, employee.isManager());
+            preparedStatement.setString(5, employee.getEmail());
+            preparedStatement.setInt(6, employee.getId());
 
             // execute query command on DB
             preparedStatement.executeUpdate();
 
             //
-            return ticket;
+            return employee;
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -127,10 +128,10 @@ public class TicketDAOPostgres implements TicketCRUD {
      * @return
      */
     @Override
-    public boolean deleteTicket(int id) {
+    public boolean deleteEmployee(int id) {
         try(Connection connection = DBConn.getConnection()){
             // sql query
-            String sql = "DELETE FROM \"CompanyData\".tickets WHERE id=?";
+            String sql = "DELETE FROM \"CompanyData\".employees WHERE id=?";
 
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setInt(1, id);

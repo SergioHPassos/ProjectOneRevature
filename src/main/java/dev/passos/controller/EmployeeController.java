@@ -1,32 +1,33 @@
 package dev.passos.controller;
 
 import com.google.gson.Gson;
+import dev.passos.entity.Employee;
 import dev.passos.entity.Ticket;
-import dev.passos.service.TicketService;
+import dev.passos.service.EmployeeService;
 import io.javalin.http.Handler;
 
-public class TicketController {
-    public Handler createTicket = (ctx) ->{
+public class EmployeeController {
+    public Handler createEmployee = (ctx) ->{
         // get body from request
         String json = ctx.body();
 
-        // deserializes json into target2
+        // deserializes json into target
         Gson gson = new Gson();
-        Ticket ticket = gson.fromJson(json, Ticket.class);
+        Employee employee = gson.fromJson(json, Employee.class);
 
         // pass to the service later for verification and then DB creation
-        Ticket registeredTicket = TicketService.getTicketService().createTicket(ticket);
+        Employee registeredEmployee = EmployeeService.getEmployeeService().createEmployee(employee);
 
         // convert ticket object into a JSON object for the response
-        String ticketJson = gson.toJson(registeredTicket);
+        String employeeJson = gson.toJson(registeredEmployee);
         ctx.status(201); //This is a status code that will tell us how things went
-        ctx.result(ticketJson);
+        ctx.result(employeeJson);
     };
 
-    public Handler deleteTicket = (ctx) ->{
+    public Handler deleteEmployee = (ctx) ->{
         // get id from request
         int id = Integer.parseInt(ctx.pathParam("id"));
-        boolean result = TicketService.getTicketService().deleteTicket(id);
+        boolean result = EmployeeService.getEmployeeService().deleteEmployee(id);
 
         // process result
         if(result){
@@ -38,34 +39,33 @@ public class TicketController {
         }
     };
 
-    public Handler updateTicket = (ctx) ->{
+    public Handler updateEmployee = (ctx) ->{
         // get body from request
         String json = ctx.body();
 
         // deserializes json into target2
         Gson gson = new Gson();
-        Ticket ticket = gson.fromJson(json, Ticket.class);
+        Employee employee = gson.fromJson(json, Employee.class);
 
         // pass to the service later for verification and then DB creation
-        Ticket registeredTicket = TicketService.getTicketService().updateTicket(ticket);
+        Employee registeredEmployee = EmployeeService.getEmployeeService().updateEmployee(employee);
 
         // convert ticket object into a JSON object for the response
-        String ticketJson = gson.toJson(registeredTicket);
+        String employeeJson = gson.toJson(registeredEmployee);
         ctx.status(201); //This is a status code that will tell us how things went
-        ctx.result(ticketJson);
+        ctx.result(employeeJson);
     };
 
-    public Handler getTicket = (ctx) ->{
+    public Handler getEmployee = (ctx) ->{
         // grab id
-        String id = ctx.pathParam("id");
+        int id = Integer.parseInt(ctx.pathParam("id"));
 
         // retrieve ticket
-//        Ticket ticket = TicketService.getTicketService().getTicket(id);
+        Employee employee = EmployeeService.getEmployeeService().getEmployee(id);
 
         // return found ticket into json
-//        Gson gson = new Gson();
-//        String json = gson.toJson(ticket);
-//        ctx.result(json);
-        ctx.result("asdadasd");
+        Gson gson = new Gson();
+        String json = gson.toJson(employee);
+        ctx.result(json);
     };
 }

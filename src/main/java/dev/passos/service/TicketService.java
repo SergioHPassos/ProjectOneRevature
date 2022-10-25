@@ -65,6 +65,11 @@ public class TicketService implements TicketCRUD {
             throw new RuntimeException("Ticket should always have a description");
         }
 
+        // if already approved, then make no changes
+        if(TicketDAOPostgres.getTicketDAOPostgres().getTicket(ticket.getId()).isStatus()){
+            return null;
+        }
+
         // look up ticket by id
         Ticket updatedTicket = TicketDAOPostgres.getTicketDAOPostgres().updateTicket(ticket);
 
