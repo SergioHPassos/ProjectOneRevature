@@ -5,6 +5,8 @@ import dev.passos.interfaces.TicketCRUD;
 import dev.passos.DAO.TicketDAOPostgres;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.ArrayList;
+
 public class TicketService implements TicketCRUD {
 
     private static TicketService ticketService = null;
@@ -91,5 +93,35 @@ public class TicketService implements TicketCRUD {
         boolean isDeleted = TicketDAOPostgres.getTicketDAOPostgres().deleteTicket(id);
 
         return isDeleted;
+    }
+
+    /**
+     * @return
+     */
+    @Override
+    public ArrayList<Ticket> getAllPendingTickets() {
+        // access DAO
+        ArrayList<Ticket> allPendingTickets = TicketDAOPostgres.getTicketDAOPostgres().getAllPendingTickets();
+
+        // return
+        return allPendingTickets;
+    }
+
+    /**
+     * @param id
+     * @return
+     */
+    @Override
+    public ArrayList<Ticket> getPendingTickets(int id) {
+        // verification checks
+        if(id < 0){
+            throw new RuntimeException("Ticket id should be greater than 0");
+        }
+
+        // access DAO
+        ArrayList<Ticket> pendingTickets = TicketDAOPostgres.getTicketDAOPostgres().getPendingTickets(id);
+
+        // return
+        return pendingTickets;
     }
 }

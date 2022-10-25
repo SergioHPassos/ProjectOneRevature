@@ -9,8 +9,8 @@ public class TicketDAOTests {
     // create ticket test
     @Test
     void create_ticket_test(){
-        Ticket newTicket = new Ticket(1, 1500, "for gas", false, 4);
-        Ticket savedTicket = TicketDAOPostgres.getTicketDAOPostgres().createTicket(newTicket);
+        Ticket testingTicket = new Ticket(1, 1500, "for gas", false, 4);
+        Ticket savedTicket = TicketDAOPostgres.getTicketDAOPostgres().createTicket(testingTicket);
         Assertions.assertNotEquals(1, savedTicket.getId());
 
         // clean up database from test data
@@ -18,11 +18,16 @@ public class TicketDAOTests {
     }
 
     // get ticket
-    void get_ticket_test(){}
+    void get_ticket_test(){
+
+    }
 
     // update ticket
     void update_ticket_test(){}
 
     // delete ticket
-    void delete_ticket_test(){}
+    void delete_ticket_test(){
+        //get testing data
+//        Ticket testingTicket = TicketDAOPostgres.getTicketDAOPostgres().findTicket(1500, "for gas");
+    }
 }

@@ -5,6 +5,7 @@ import dev.passos.interfaces.TicketCRUD;
 import dev.passos.utility.DBConn;
 
 import java.sql.*;
+import java.util.ArrayList;
 
 public class TicketDAOPostgres implements TicketCRUD {
 
@@ -50,7 +51,7 @@ public class TicketDAOPostgres implements TicketCRUD {
 
             //
             return ticket;
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -145,5 +146,87 @@ public class TicketDAOPostgres implements TicketCRUD {
         }
 
         return false;
+    }
+
+    /**
+     * @return
+     */
+    @Override
+    public ArrayList<Ticket> getAllPendingTickets() {
+        try(Connection connection = DBConn.getConnection()){
+            // sql query
+            String sql = "SELECT * FROM \"CompanyData\".tickets WHERE status=false";
+
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+
+            // execute query command on DB
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+
+            // create ticket object with data
+            ArrayList<Ticket> pendingTickets = new ArrayList<Ticket>();
+            while(resultSet.next()){
+                // create ticket
+                Ticket localTicket = new Ticket(
+                        resultSet.getInt("id"),
+                        resultSet.getInt("amount"),
+                        resultSet.getString("description"),
+                        resultSet.getBoolean("status"),
+                        resultSet.getInt("employee_id")
+                );
+
+                // add ticket to arraylist
+                pendingTickets.add(localTicket);
+            }
+
+            //
+            return pendingTickets;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+    /**
+     * @param id
+     * @return
+     */
+    @Override
+    public ArrayList<Ticket> getPendingTickets(int id) {
+        try(Connection connection = DBConn.getConnection()){
+            // sql query
+            String sql = "SELECT * FROM \"CompanyData\".tickets WHERE status=false AND employee_id=?";
+
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1, id);
+
+            // execute query command on DB
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+
+            // create ticket object with data
+            ArrayList<Ticket> pendingTickets = new ArrayList<Ticket>();
+            while(resultSet.next()){
+                // create ticket
+                Ticket localTicket = new Ticket(
+                        resultSet.getInt("id"),
+                        resultSet.getInt("amount"),
+                        resultSet.getString("description"),
+                        resultSet.getBoolean("status"),
+                        resultSet.getInt("employee_id")
+                );
+
+                // add ticket to arraylist
+                pendingTickets.add(localTicket);
+            }
+
+            //
+            return pendingTickets;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return null;
     }
 }
