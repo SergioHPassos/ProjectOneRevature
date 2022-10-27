@@ -14,6 +14,9 @@ public class TicketController {
         if(ctx.status() == 401){
             ctx.result("check email and password");
         }
+        else if(ctx.status() == 403){
+            ctx.result("manager access only, check your credentials");
+        }
         else{
             // get body from request
             String json = ctx.body();
@@ -22,13 +25,22 @@ public class TicketController {
             Gson gson = new Gson();
             Ticket ticket = gson.fromJson(json, Ticket.class);
 
+            // assign ticket type
+            ticket.setTicketType(Ticket.TicketType.valueOf(json.split(":")[json.split(":").length-1].split("\"")[1].toUpperCase()));
+
             // pass to the service later for verification and then DB creation
             Ticket registeredTicket = TicketService.getTicketService().createTicket(ticket);
 
-            // convert ticket object into a JSON object for the response
-            String ticketJson = gson.toJson(registeredTicket);
-            ctx.status(200); //This is a status code that will tell us how things went
-            ctx.result(ticketJson);
+            if(registeredTicket==null){
+                ctx.status(400);
+                ctx.result("amount and description is required");
+            }
+            else{
+                // convert ticket object into a JSON object for the response
+                String ticketJson = gson.toJson(registeredTicket);
+                ctx.status(200);
+                ctx.result(ticketJson);
+            }
         }
     };
 
@@ -36,6 +48,9 @@ public class TicketController {
         // unauthorized
         if(ctx.status() == 401){
             ctx.result("check email and password");
+        }
+        else if(ctx.status() == 403){
+            ctx.result("manager access only, check your credentials");
         }
         else{
             // get id from request
@@ -45,6 +60,7 @@ public class TicketController {
             // process result
             if(result){
                 ctx.status(200); // no content
+                ctx.result("ticket was deleted");
             }
             else{
                 ctx.status(400); // bad request
@@ -58,6 +74,9 @@ public class TicketController {
         if(ctx.status() == 401){
             ctx.result("check email and password");
         }
+        else if(ctx.status() == 403){
+            ctx.result("manager access only, check your credentials");
+        }
         else{
             // get body from request
             String json = ctx.body();
@@ -66,13 +85,23 @@ public class TicketController {
             Gson gson = new Gson();
             Ticket ticket = gson.fromJson(json, Ticket.class);
 
+            // assign ticket type
+            ticket.setTicketType(Ticket.TicketType.valueOf(json.split(":")[json.split(":").length-1].split("\"")[1].toUpperCase()));
+
             // pass to the service later for verification and then DB creation
             Ticket registeredTicket = TicketService.getTicketService().updateTicket(ticket);
 
-            // convert ticket object into a JSON object for the response
-            String ticketJson = gson.toJson(registeredTicket);
-            ctx.status(200); //This is a status code that will tell us how things went
-            ctx.result(ticketJson);
+            if(registeredTicket==null){
+                // ticket has already been approved, no further changes can be made
+                ctx.status(400);
+                ctx.result("ticket has already been approved, no further changes can be made");
+            }
+            else{
+                // convert ticket object into a JSON object for the response
+                String ticketJson = gson.toJson(registeredTicket);
+                ctx.status(200); //This is a status code that will tell us how things went
+                ctx.result(ticketJson);
+            }
         }
     };
 
@@ -80,6 +109,9 @@ public class TicketController {
         // unauthorized
         if(ctx.status() == 401){
             ctx.result("check email and password");
+        }
+        else if(ctx.status() == 403){
+            ctx.result("manager access only, check your credentials");
         }
         else{
             // grab id
@@ -106,6 +138,9 @@ public class TicketController {
         // unauthorized
         if(ctx.status() == 401){
             ctx.result("check email and password");
+        }
+        else if(ctx.status() == 403){
+            ctx.result("manager access only, check your credentials");
         }
         else{
             // call the DAO directly

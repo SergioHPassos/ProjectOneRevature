@@ -147,4 +147,46 @@ public class EmployeeDAOPostgres implements EmployeeCRUD {
 
         return false;
     }
+
+    /**
+     * @param email
+     * @return
+     */
+    @Override
+    public Employee getEmployeeByEmail(String email) {
+        try(Connection connection = DBConn.getConnection()){
+            // sql query
+            String sql = "SELECT * FROM \"CompanyData\".employees WHERE email=?";
+
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, email);
+
+            // execute query command on DB
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            // move head
+            if(resultSet.next()){
+                // create ticket object with data
+                Employee lookupEmployee = new Employee(
+                        resultSet.getInt("id"),
+                        resultSet.getString("firstName"),
+                        resultSet.getString("lastName"),
+                        resultSet.getString("password"),
+                        resultSet.getBoolean("isManager"),
+                        resultSet.getString("email"));
+
+                //
+                return lookupEmployee;
+            }
+            else{
+                return null;
+            }
+
+
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 }

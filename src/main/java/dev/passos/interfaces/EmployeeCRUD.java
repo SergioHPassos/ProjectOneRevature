@@ -7,4 +7,5 @@ public interface EmployeeCRUD {
     Employee getEmployee(int id);
     Employee updateEmployee(Employee employee);
     boolean deleteEmployee(int id);
+    Employee getEmployeeByEmail(String email);
 }

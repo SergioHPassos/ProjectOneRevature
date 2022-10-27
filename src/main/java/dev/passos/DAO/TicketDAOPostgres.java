@@ -8,10 +8,7 @@ import java.sql.*;
 import java.util.ArrayList;
 
 public class TicketDAOPostgres implements TicketCRUD {
-
     private static TicketDAOPostgres ticketDAOPostgres = null;
-
-
 
     public static TicketDAOPostgres getTicketDAOPostgres(){
         if(ticketDAOPostgres == null){
@@ -28,13 +25,14 @@ public class TicketDAOPostgres implements TicketCRUD {
     public Ticket createTicket(Ticket ticket) {
         try(Connection connection = DBConn.getConnection()){
             // sql query
-            String sql = "INSERT INTO \"CompanyData\".tickets VALUES(default, ?, ?, ?, ?)";
+            String sql = "INSERT INTO \"CompanyData\".tickets VALUES(default, ?, ?, ?, ?, ?)";
 
             PreparedStatement preparedStatement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            preparedStatement.setInt(1, ticket.getAmount());
+            preparedStatement.setDouble(1, ticket.getAmount());
             preparedStatement.setString(2, ticket.getDescription());
             preparedStatement.setBoolean(3, ticket.isStatus());
             preparedStatement.setInt(4, ticket.getEmployee_id());
+            preparedStatement.setString(5, ticket.getTicketType().name());
 
             // execute query command on DB
             preparedStatement.execute();
@@ -80,10 +78,11 @@ public class TicketDAOPostgres implements TicketCRUD {
             // create ticket object with data
             Ticket lookupTicket = new Ticket(
                     resultSet.getInt("id"),
-                    resultSet.getInt("amount"),
+                    resultSet.getDouble("amount"),
                     resultSet.getString("description"),
                     resultSet.getBoolean("status"),
-                    resultSet.getInt("employee_id")
+                    resultSet.getInt("employee_id"),
+                    resultSet.getString("tickettype")
             );
 
             //
@@ -103,13 +102,14 @@ public class TicketDAOPostgres implements TicketCRUD {
     public Ticket updateTicket(Ticket ticket) {
         try(Connection connection = DBConn.getConnection()){
             // sql query
-            String sql = "UPDATE \"CompanyData\".tickets SET amount=?, description=?, status=? WHERE id=?";
+            String sql = "UPDATE \"CompanyData\".tickets SET amount=?, description=?, status=?, tickettype=? WHERE id=?";
 
             PreparedStatement preparedStatement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            preparedStatement.setInt(1, ticket.getAmount());
+            preparedStatement.setDouble(1, ticket.getAmount());
             preparedStatement.setString(2, ticket.getDescription());
             preparedStatement.setBoolean(3, ticket.isStatus());
-            preparedStatement.setInt(4, ticket.getId());
+            preparedStatement.setString(4, ticket.getTicketType().name());
+            preparedStatement.setInt(5, ticket.getId());
 
             // execute query command on DB
             preparedStatement.executeUpdate();
@@ -169,10 +169,11 @@ public class TicketDAOPostgres implements TicketCRUD {
                 // create ticket
                 Ticket localTicket = new Ticket(
                         resultSet.getInt("id"),
-                        resultSet.getInt("amount"),
+                        resultSet.getDouble("amount"),
                         resultSet.getString("description"),
                         resultSet.getBoolean("status"),
-                        resultSet.getInt("employee_id")
+                        resultSet.getInt("employee_id"),
+                        resultSet.getString("tickettype")
                 );
 
                 // add ticket to arraylist
@@ -196,7 +197,7 @@ public class TicketDAOPostgres implements TicketCRUD {
     public ArrayList<Ticket> getPendingTickets(int id) {
         try(Connection connection = DBConn.getConnection()){
             // sql query
-            String sql = "SELECT * FROM \"CompanyData\".tickets WHERE status=false AND employee_id=?";
+            String sql = "SELECT * FROM \"CompanyData\".tickets WHERE employee_id=?";
 
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setInt(1, id);
@@ -211,10 +212,11 @@ public class TicketDAOPostgres implements TicketCRUD {
                 // create ticket
                 Ticket localTicket = new Ticket(
                         resultSet.getInt("id"),
-                        resultSet.getInt("amount"),
+                        resultSet.getDouble("amount"),
                         resultSet.getString("description"),
                         resultSet.getBoolean("status"),
-                        resultSet.getInt("employee_id")
+                        resultSet.getInt("employee_id"),
+                        resultSet.getString("tickettype")
                 );
 
                 // add ticket to arraylist

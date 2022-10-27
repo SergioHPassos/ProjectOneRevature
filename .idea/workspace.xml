@@ -6,11 +6,14 @@
   <component name="ChangeListManager">
     <list default="true" id="abdc9dce-b3a7-4361-a4a5-cb7577902193" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dev/passos/DAO/EmployeeDAOPostgres.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dev/passos/DAO/EmployeeDAOPostgres.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/dev/passos/DAO/TicketDAOPostgres.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dev/passos/DAO/TicketDAOPostgres.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/dev/passos/controller/EmployeeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dev/passos/controller/EmployeeController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/dev/passos/controller/TicketController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dev/passos/controller/TicketController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/dev/passos/driver/Driver.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dev/passos/driver/Driver.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/dev/passos/interfaces/TicketCRUD.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dev/passos/interfaces/TicketCRUD.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dev/passos/entity/Ticket.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dev/passos/entity/Ticket.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dev/passos/interfaces/EmployeeCRUD.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dev/passos/interfaces/EmployeeCRUD.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dev/passos/service/EmployeeService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dev/passos/service/EmployeeService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/dev/passos/service/TicketService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dev/passos/service/TicketService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/dev/passos/DAO/TicketDAOTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/dev/passos/DAO/TicketDAOTests.java" afterDir="false" />
     </list>
@@ -53,21 +56,55 @@
     &quot;settings.editor.selected.configurable&quot;: &quot;editor.preferences.fonts.default&quot;
   }
 }</component>
-  <component name="RunManager" selected="Application.Driver">
-    <configuration name="Driver" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="dev.passos.driver.Driver" />
+  <component name="RunManager" selected="JUnit.TicketDAOTests">
+    <configuration name="EmployeeDAOTests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="ProjectOneRevature" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="dev.passos.driver.*" />
+          <option name="PATTERN" value="dev.passos.DAO.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
+      <option name="PACKAGE_NAME" value="dev.passos.DAO" />
+      <option name="MAIN_CLASS_NAME" value="dev.passos.DAO.EmployeeDAOTests" />
+      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="TicketDAOTests.create_ticket_test" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="EmployeeDAOTests.create_employee_test" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="ProjectOneRevature" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="dev.passos.DAO.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="dev.passos.DAO" />
+      <option name="MAIN_CLASS_NAME" value="dev.passos.DAO.EmployeeDAOTests" />
+      <option name="METHOD_NAME" value="create_employee_test" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="EmployeeDAOTests.delete_employee_test" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="ProjectOneRevature" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="dev.passos.DAO.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="dev.passos.DAO" />
+      <option name="MAIN_CLASS_NAME" value="dev.passos.DAO.EmployeeDAOTests" />
+      <option name="METHOD_NAME" value="delete_employee_test" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="TicketDAOTests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="ProjectOneRevature" />
       <extension name="coverage">
         <pattern>
@@ -77,7 +114,22 @@
       </extension>
       <option name="PACKAGE_NAME" value="dev.passos.DAO" />
       <option name="MAIN_CLASS_NAME" value="dev.passos.DAO.TicketDAOTests" />
-      <option name="METHOD_NAME" value="create_ticket_test" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="TicketDAOTests.get_pending_tickets_test" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="ProjectOneRevature" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="dev.passos.DAO.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="dev.passos.DAO" />
+      <option name="MAIN_CLASS_NAME" value="dev.passos.DAO.TicketDAOTests" />
+      <option name="METHOD_NAME" value="get_pending_tickets_test" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -85,8 +137,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.Driver" />
-        <item itemvalue="JUnit.TicketDAOTests.create_ticket_test" />
+        <item itemvalue="JUnit.TicketDAOTests" />
+        <item itemvalue="JUnit.EmployeeDAOTests" />
+        <item itemvalue="JUnit.EmployeeDAOTests.create_employee_test" />
+        <item itemvalue="JUnit.EmployeeDAOTests.delete_employee_test" />
+        <item itemvalue="JUnit.TicketDAOTests.get_pending_tickets_test" />
       </list>
     </recent_temporary>
   </component>
@@ -113,11 +168,27 @@
     </option>
   </component>
   <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/test/java/dev/passos/DAO/EmployeeDAOTests.java</url>
+          <line>19</line>
+          <option name="timeStamp" value="91" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/test/java/dev/passos/DAO/EmployeeDAOTests.java</url>
+          <line>22</line>
+          <option name="timeStamp" value="92" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
     <watches-manager>
       <configuration name="Application">
         <watch expression="ctx.headerMap()" language="JAVA" />
         <watch expression="ctx.headerMap()" language="JAVA" />
         <watch expression="ctx.status()" language="JAVA" />
+        <watch expression="ticket.isStatus()" language="JAVA" />
+        <watch expression="ticket.isStatus()" language="JAVA" />
       </configuration>
     </watches-manager>
   </component>

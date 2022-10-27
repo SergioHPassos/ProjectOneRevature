@@ -33,6 +33,12 @@ public class EmployeeService implements EmployeeCRUD {
             throw new RuntimeException("Employee must have a email address!");
         }
 
+        // check if user exist already
+        Employee isDuplicateEmployee = EmployeeService.getEmployeeService().getEmployeeByEmail(employee.getEmail());
+        if(isDuplicateEmployee != null){
+            return null; // bad email
+        }
+
         // create employee in database
         Employee registeredEmployee = EmployeeDAOPostgres.getEmployeeDAOPostgres().createEmployee(employee);
 
@@ -92,5 +98,29 @@ public class EmployeeService implements EmployeeCRUD {
         boolean isDeleted = EmployeeDAOPostgres.getEmployeeDAOPostgres().deleteEmployee(id);
 
         return isDeleted;
+    }
+
+    /**
+     * @param email
+     * @return
+     */
+    @Override
+    public Employee getEmployeeByEmail(String email) {
+        // verify email
+        try{
+            if(email.length() == 0){
+                throw new RuntimeException("check your email");
+            }
+        }
+        catch(Exception e){
+            e.printStackTrace();
+            return null;
+        }
+
+        // call DAO
+        Employee employeeByEmail = EmployeeDAOPostgres.getEmployeeDAOPostgres().getEmployeeByEmail(email);
+
+        //
+        return employeeByEmail;
     }
 }

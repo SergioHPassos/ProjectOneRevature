@@ -25,10 +25,16 @@ public class TicketService implements TicketCRUD {
     @Override
     public Ticket createTicket(@NotNull Ticket ticket) {
         // verifications checks
+        try{
         if(ticket.getAmount() == 0){
             throw new RuntimeException("Ticket amount should be greater than 0");
         } else if(ticket.getDescription().length() == 0){
             throw new RuntimeException("Ticket should always have a description");
+        }
+        }
+        catch(Exception e){
+            e.printStackTrace();
+            return null;
         }
 
         // create ticket in database

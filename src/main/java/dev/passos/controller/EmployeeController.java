@@ -19,10 +19,16 @@ public class EmployeeController {
         try{
             Employee registeredEmployee = EmployeeService.getEmployeeService().createEmployee(employee);
 
-            // convert ticket object into a JSON object for the response
-            String employeeJson = gson.toJson(registeredEmployee);
-            ctx.status(201); //This is a status code that will tell us how things went
-            ctx.result(employeeJson);
+            // email already being used
+            if(registeredEmployee == null){
+                ctx.status(400);
+                ctx.result("email is already being used");
+            }else{
+                // convert ticket object into a JSON object for the response
+                String employeeJson = gson.toJson(registeredEmployee);
+                ctx.status(201); //This is a status code that will tell us how things went
+                ctx.result(employeeJson);
+            }
         } catch(Exception e){
             ctx.status(400); //This is a status code that will tell us how things went
             ctx.result("bad request, email is already taken");

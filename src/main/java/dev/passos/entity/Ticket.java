@@ -5,26 +5,37 @@ import java.util.Objects;
 public class Ticket {
     // instance variables
     private int id;
-    private int amount = 0;
+    private double amount = 0;
     private String description = "";
     private boolean status = false;
     private int employee_id;
 
+    private TicketType ticketType = TicketType.TRAVEL;
+    public static enum TicketType {
+        TRAVEL,
+        LODGING,
+        FOOD,
+        OTHER
+    }
+
     // constructor w/ parameters
-    public Ticket(int amount, String description, boolean status, int employee_id){
+    public Ticket(double amount, String description, boolean status, int employee_id, String ticketType){
         this.amount = amount;
         this.description = description;
         this.status = status;
         this.employee_id = employee_id;
+        this.ticketType = TicketType.valueOf(ticketType.toUpperCase());
+
     }
 
     // constructor w/ parameters
-    public Ticket(int id, int amount, String description, boolean status, int employee_id){
+    public Ticket(int id, double amount, String description, boolean status, int employee_id, String ticketType){
         this.id = id;
         this.amount = amount;
         this.description = description;
         this.status = status;
         this.employee_id = employee_id;
+        this.ticketType = TicketType.valueOf(ticketType.toUpperCase());
     }
 
     // default constructor
@@ -52,11 +63,11 @@ public class Ticket {
         this.id = id;
     }
 
-    public int getAmount() {
+    public double getAmount() {
         return amount;
     }
 
-    public void setAmount(int amount) {
+    public void setAmount(double amount) {
         this.amount = amount;
     }
 
@@ -82,5 +93,13 @@ public class Ticket {
 
     public void setEmployee_id(int employee_id) {
         this.employee_id = employee_id;
+    }
+
+    public TicketType getTicketType() {
+        return ticketType;
+    }
+
+    public void setTicketType(TicketType ticketType) {
+        this.ticketType = ticketType;
     }
 }

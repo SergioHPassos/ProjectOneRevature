@@ -1,5 +1,7 @@
 package dev.passos.driver;
 
+import com.google.gson.Gson;
+import dev.passos.DAO.EmployeeDAOPostgres;
 import dev.passos.DAO.TicketDAOPostgres;
 import dev.passos.controller.EmployeeController;
 import dev.passos.controller.TicketController;
@@ -30,6 +32,11 @@ public class Driver {
         // auth object
         AESEncryptionDecryption auth = new AESEncryptionDecryption();
         auth.prepareSecreteKey(secretKey);
+
+        // set status 200 default
+        app.before(ctx -> {
+            ctx.status(200);
+        });
 
         app.before("/auth/*", ctx -> {
             try{
@@ -78,6 +85,53 @@ public class Driver {
             catch(Exception e){
                 System.out.println(e);
                 ctx.status(401);
+            }
+        });
+
+        app.before("/auth/updateTicket", ctx -> {
+            // get body from request
+            String json = ctx.body();
+
+            // deserializes json into target2
+            Gson gson = new Gson();
+            Ticket ticket = gson.fromJson(json, Ticket.class);
+
+            // check if status change is requested, if so make sure it's a manager
+            if(ticket.isStatus()){
+                try{
+                    // get token
+                    String encryptedCredentials = ctx.header("Authorization").split(" ")[1];
+                    String[] decryptedCredentials = auth.decrypt(encryptedCredentials, secretKey).split(" "); // [0]email, [1]password
+
+                    // get employee from DAO
+                    Employee employee = EmployeeDAOPostgres.getEmployeeDAOPostgres().getEmployeeByEmail(decryptedCredentials[0]);
+
+                    // check if manager
+                    ctx.status(employee.isManager() ? 200  : 403); // forbidden
+
+                }
+                catch(Exception e){
+                    e.printStackTrace();
+                }
+            }else{
+                ctx.status(200);
+            }
+        });
+        app.before("/auth/getAllPendingTickets", ctx -> {
+            try{
+                // get token
+                String encryptedCredentials = ctx.header("Authorization").split(" ")[1];
+                String[] decryptedCredentials = auth.decrypt(encryptedCredentials, secretKey).split(" "); // [0]email, [1]password
+
+                // get employee from DAO
+                Employee employee = EmployeeDAOPostgres.getEmployeeDAOPostgres().getEmployeeByEmail(decryptedCredentials[0]);
+
+                // check if manager
+                ctx.status(employee.isManager() ? 200  : 403); // forbidden
+
+            }
+            catch(Exception e){
+                e.printStackTrace();
             }
         });
 
