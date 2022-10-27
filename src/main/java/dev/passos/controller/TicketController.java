@@ -2,7 +2,6 @@ package dev.passos.controller;
 
 import com.google.gson.Gson;
 import dev.passos.entity.Ticket;
-import dev.passos.service.EmployeeService;
 import dev.passos.service.TicketService;
 import io.javalin.http.Handler;
 
@@ -24,9 +23,6 @@ public class TicketController {
             // deserializes json into target2
             Gson gson = new Gson();
             Ticket ticket = gson.fromJson(json, Ticket.class);
-
-            // assign ticket type
-            ticket.setTicketType(Ticket.TicketType.valueOf(json.split(":")[json.split(":").length-1].split("\"")[1].toUpperCase()));
 
             // pass to the service later for verification and then DB creation
             Ticket registeredTicket = TicketService.getTicketService().createTicket(ticket);
@@ -84,9 +80,6 @@ public class TicketController {
             // deserializes json into target2
             Gson gson = new Gson();
             Ticket ticket = gson.fromJson(json, Ticket.class);
-
-            // assign ticket type
-            ticket.setTicketType(Ticket.TicketType.valueOf(json.split(":")[json.split(":").length-1].split("\"")[1].toUpperCase()));
 
             // pass to the service later for verification and then DB creation
             Ticket registeredTicket = TicketService.getTicketService().updateTicket(ticket);

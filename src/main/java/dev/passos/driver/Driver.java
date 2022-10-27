@@ -97,7 +97,7 @@ public class Driver {
             Ticket ticket = gson.fromJson(json, Ticket.class);
 
             // check if status change is requested, if so make sure it's a manager
-            if(ticket.isStatus()){
+            if(ticket.getStatus().equals(Ticket.ApprovalType.APPROVED)){
                 try{
                     // get token
                     String encryptedCredentials = ctx.header("Authorization").split(" ")[1];

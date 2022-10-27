@@ -30,7 +30,7 @@ public class TicketDAOPostgres implements TicketCRUD {
             PreparedStatement preparedStatement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             preparedStatement.setDouble(1, ticket.getAmount());
             preparedStatement.setString(2, ticket.getDescription());
-            preparedStatement.setBoolean(3, ticket.isStatus());
+            preparedStatement.setString(3, ticket.getStatus().name().toUpperCase());
             preparedStatement.setInt(4, ticket.getEmployee_id());
             preparedStatement.setString(5, ticket.getTicketType().name());
 
@@ -80,7 +80,7 @@ public class TicketDAOPostgres implements TicketCRUD {
                     resultSet.getInt("id"),
                     resultSet.getDouble("amount"),
                     resultSet.getString("description"),
-                    resultSet.getBoolean("status"),
+                    resultSet.getString("status"),
                     resultSet.getInt("employee_id"),
                     resultSet.getString("tickettype")
             );
@@ -107,7 +107,7 @@ public class TicketDAOPostgres implements TicketCRUD {
             PreparedStatement preparedStatement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             preparedStatement.setDouble(1, ticket.getAmount());
             preparedStatement.setString(2, ticket.getDescription());
-            preparedStatement.setBoolean(3, ticket.isStatus());
+            preparedStatement.setString(3, ticket.getStatus().name().toUpperCase());
             preparedStatement.setString(4, ticket.getTicketType().name());
             preparedStatement.setInt(5, ticket.getId());
 
@@ -155,7 +155,7 @@ public class TicketDAOPostgres implements TicketCRUD {
     public ArrayList<Ticket> getAllPendingTickets() {
         try(Connection connection = DBConn.getConnection()){
             // sql query
-            String sql = "SELECT * FROM \"CompanyData\".tickets WHERE status=false";
+            String sql = "SELECT * FROM \"CompanyData\".tickets WHERE status='PENDING'";
 
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
 
@@ -171,7 +171,7 @@ public class TicketDAOPostgres implements TicketCRUD {
                         resultSet.getInt("id"),
                         resultSet.getDouble("amount"),
                         resultSet.getString("description"),
-                        resultSet.getBoolean("status"),
+                        resultSet.getString("status"),
                         resultSet.getInt("employee_id"),
                         resultSet.getString("tickettype")
                 );
@@ -214,7 +214,7 @@ public class TicketDAOPostgres implements TicketCRUD {
                         resultSet.getInt("id"),
                         resultSet.getDouble("amount"),
                         resultSet.getString("description"),
-                        resultSet.getBoolean("status"),
+                        resultSet.getString("status"),
                         resultSet.getInt("employee_id"),
                         resultSet.getString("tickettype")
                 );

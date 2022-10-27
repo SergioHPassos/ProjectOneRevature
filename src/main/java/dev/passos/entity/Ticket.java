@@ -7,35 +7,40 @@ public class Ticket {
     private int id;
     private double amount = 0;
     private String description = "";
-    private boolean status = false;
+    private ApprovalType status = ApprovalType.PENDING;
     private int employee_id;
 
-    private TicketType ticketType = TicketType.TRAVEL;
+    private TicketType tickettype = TicketType.TRAVEL;
     public static enum TicketType {
         TRAVEL,
         LODGING,
         FOOD,
         OTHER
     }
+    public static enum ApprovalType {
+        PENDING,
+        APPROVED,
+        DENIED
+    }
 
     // constructor w/ parameters
-    public Ticket(double amount, String description, boolean status, int employee_id, String ticketType){
+    public Ticket(double amount, String description, String status, int employee_id, String tickettype){
         this.amount = amount;
         this.description = description;
-        this.status = status;
+        this.status = ApprovalType.valueOf(status.toUpperCase());
         this.employee_id = employee_id;
-        this.ticketType = TicketType.valueOf(ticketType.toUpperCase());
+        this.tickettype = TicketType.valueOf(tickettype.toUpperCase());
 
     }
 
     // constructor w/ parameters
-    public Ticket(int id, double amount, String description, boolean status, int employee_id, String ticketType){
+    public Ticket(int id, double amount, String description, String status, int employee_id, String tickettype){
         this.id = id;
         this.amount = amount;
         this.description = description;
-        this.status = status;
+        this.status = ApprovalType.valueOf(status.toUpperCase());
         this.employee_id = employee_id;
-        this.ticketType = TicketType.valueOf(ticketType.toUpperCase());
+        this.tickettype = TicketType.valueOf(tickettype.toUpperCase());
     }
 
     // default constructor
@@ -56,7 +61,7 @@ public class Ticket {
 
     // getters and setter
     public int getId() {
-        return id;
+        return this.id;
     }
 
     public void setId(int id) {
@@ -64,7 +69,7 @@ public class Ticket {
     }
 
     public double getAmount() {
-        return amount;
+        return this.amount;
     }
 
     public void setAmount(double amount) {
@@ -72,23 +77,23 @@ public class Ticket {
     }
 
     public String getDescription() {
-        return description;
+        return this.description;
     }
 
     public void setDescription(String description) {
         this.description = description;
     }
 
-    public boolean isStatus() {
-        return status;
+    public ApprovalType getStatus() {
+        return this.status;
     }
 
-    public void setStatus(boolean status) {
+    public void setStatus(ApprovalType status) {
         this.status = status;
     }
 
     public int getEmployee_id() {
-        return employee_id;
+        return this.employee_id;
     }
 
     public void setEmployee_id(int employee_id) {
@@ -96,10 +101,10 @@ public class Ticket {
     }
 
     public TicketType getTicketType() {
-        return ticketType;
+        return this.tickettype;
     }
 
-    public void setTicketType(TicketType ticketType) {
-        this.ticketType = ticketType;
+    public void setTicketType(TicketType tickettype) {
+        this.tickettype = tickettype;
     }
 }

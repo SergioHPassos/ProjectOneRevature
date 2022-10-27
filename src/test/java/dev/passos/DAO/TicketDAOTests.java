@@ -13,7 +13,7 @@ public class TicketDAOTests {
     @Test
     @Order(1)
     void create_ticket_test(){
-        Ticket testingTicket = new Ticket(1, 1500, "for gas", false, 4, Ticket.TicketType.TRAVEL.name());
+        Ticket testingTicket = new Ticket(1, 1500, "for gas", Ticket.ApprovalType.PENDING.name(), 4, Ticket.TicketType.TRAVEL.name());
         Ticket savedTicket = TicketDAOPostgres.getTicketDAOPostgres().createTicket(testingTicket);
         Assertions.assertNotEquals(1, savedTicket.getId());
 
@@ -64,7 +64,7 @@ public class TicketDAOTests {
     @Order(4)
     void delete_ticket_test(){
         // create ticket
-        Ticket testingTicket = new Ticket(1, 1500, "for gas", false, 4, Ticket.TicketType.TRAVEL.name());
+        Ticket testingTicket = new Ticket(1, 1500, "for gas", Ticket.ApprovalType.PENDING.name(), 4, Ticket.TicketType.TRAVEL.name());
         Ticket savedTicket = TicketDAOPostgres.getTicketDAOPostgres().createTicket(testingTicket);
 
         // delete ticket

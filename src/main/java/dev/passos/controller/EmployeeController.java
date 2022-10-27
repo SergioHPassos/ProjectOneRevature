@@ -48,6 +48,7 @@ public class EmployeeController {
             // process result
             if(result){
                 ctx.status(204);
+                ctx.result("employee account was deleted");
             }
             else{
                 ctx.status(400);

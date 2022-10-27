@@ -26,11 +26,14 @@ public class TicketService implements TicketCRUD {
     public Ticket createTicket(@NotNull Ticket ticket) {
         // verifications checks
         try{
-        if(ticket.getAmount() == 0){
-            throw new RuntimeException("Ticket amount should be greater than 0");
-        } else if(ticket.getDescription().length() == 0){
-            throw new RuntimeException("Ticket should always have a description");
-        }
+            if(ticket.getAmount() == 0){
+                throw new RuntimeException("Ticket amount should be greater than 0");
+            } else if(ticket.getDescription().length() == 0){
+                throw new RuntimeException("Ticket should always have a description");
+            } else if(!(ticket.getStatus() instanceof Ticket.ApprovalType)){
+                // not standard status
+                throw new RuntimeException("status has to be pending, approved, or denied");
+            }
         }
         catch(Exception e){
             e.printStackTrace();
@@ -71,10 +74,13 @@ public class TicketService implements TicketCRUD {
             throw new RuntimeException("Ticket amount should be greater than 0");
         } else if(ticket.getDescription().length() == 0){
             throw new RuntimeException("Ticket should always have a description");
+        } else if(!(ticket.getStatus() instanceof Ticket.ApprovalType)){
+            // not standard status
+            throw new RuntimeException("status has to be pending, approved, or denied");
         }
 
         // if already approved, then make no changes
-        if(TicketDAOPostgres.getTicketDAOPostgres().getTicket(ticket.getId()).isStatus()){
+        if(TicketDAOPostgres.getTicketDAOPostgres().getTicket(ticket.getId()).getStatus().equals(Ticket.ApprovalType.APPROVED)){
             return null;
         }
 
