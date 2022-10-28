@@ -20,28 +20,29 @@ develop a backend with Java, Javalin, JDBC, and Postgres, finally test the API.
 
 
 ## General Information
-- Provide general information about your project here.
-- What problem does it (intend to) solve?
-- What is the purpose of your project?
-- Why did you undertake it?
-<!-- You don't have to answer all the questions - just the ones relevant to your project. -->
+- This project was to better understand Docker, Java, and various Backend systems.
+- This application implements basic authentication (trivial bearer tokens)
+- This API can CRUD the employees and tickets table
 
 
 ## Technologies Used
-- Tech 1 - version 1.0
-- Tech 2 - version 2.0
-- Tech 3 - version 3.0
+- junit-jupiter-api - version 5.8.2
+- mockito-all - version 1.10.19
+- javalin - version 4.1.1
+- gson - version 2.8.5
+- postgresql - version 42.2.14
 
 
 ## Features
 List the ready features here:
-- Awesome feature 1
-- Awesome feature 2
-- Awesome feature 3
+- Login/Register
+- Submit Ticket
+- Ticketing System
+- View Previous Tickets
 
 
 ## Screenshots
-![Example screenshot](./img/screenshot.png)
+![basic data flow for backend](./diagrams/dataFlow.png)
 <!-- If you have screenshots you'd like to share, include them here. -->
 
 
@@ -74,15 +75,8 @@ To do:
 - Feature to be added 2
 
 
-## Acknowledgements
-Give credit here.
-- This project was inspired by...
-- This project was based on [this tutorial](https://www.example.com).
-- Many thanks to...
-
-
 ## Contact
-Created by [@flynerdpl](https://www.flynerd.pl/) - feel free to contact me!
+Created by [@sergdev](https://www.sergdev.com/) - feel free to contact me!
 
 
 <!-- Optional -->
