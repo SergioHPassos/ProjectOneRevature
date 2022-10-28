@@ -6,12 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="abdc9dce-b3a7-4361-a4a5-cb7577902193" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/dev/passos/DAO/EmployeeDAOPostgres.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dev/passos/DAO/EmployeeDAOPostgres.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/dev/passos/DAO/TicketDAOPostgres.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dev/passos/DAO/TicketDAOPostgres.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/dev/passos/driver/Driver.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dev/passos/driver/Driver.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/dev/passos/utility/DBConn.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dev/passos/utility/DBConn.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/dev/passos/DAO/EmployeeDAOTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/dev/passos/DAO/EmployeeDAOTests.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
