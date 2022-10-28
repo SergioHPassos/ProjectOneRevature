@@ -50,7 +50,7 @@ public class Driver {
                     // verify data
                     try(Connection connection = DBConn.getConnection()){
                         // sql query
-                        String sql = "SELECT * FROM \"CompanyData\".employees WHERE email=? AND password=?";
+                        String sql = "SELECT * FROM \"companydata\".employees WHERE email=? AND password=?";
 
                         PreparedStatement preparedStatement = connection.prepareStatement(sql);
                         preparedStatement.setString(1, decryptedCredentials[0]);
@@ -153,7 +153,7 @@ public class Driver {
 
 
         // ## login ##
-        app.get("/login", ctx -> {
+        app.post("/login", ctx -> {
             // decode the basic auth header
             BasicAuthCredentials credentials = ctx.basicAuthCredentials();
 
@@ -168,7 +168,7 @@ public class Driver {
             Boolean isVerified = false;
             try(Connection connection = DBConn.getConnection()){
                 // sql query
-                String sql = "SELECT * FROM \"CompanyData\".employees WHERE email=? AND password=?";
+                String sql = "SELECT * FROM \"companydata\".employees WHERE email=? AND password=?";
 
                 PreparedStatement preparedStatement = connection.prepareStatement(sql);
                 preparedStatement.setString(1, credentials.getUsername());

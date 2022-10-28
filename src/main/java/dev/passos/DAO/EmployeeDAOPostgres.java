@@ -24,7 +24,7 @@ public class EmployeeDAOPostgres implements EmployeeCRUD {
     public Employee createEmployee(Employee employee) {
         try(Connection connection = DBConn.getConnection()){
             // sql query
-            String sql = "INSERT INTO \"CompanyData\".employees VALUES(default, ?, ?, ?, ?, ?)";
+            String sql = "INSERT INTO \"companydata\".employees VALUES(default, ?, ?, ?, ?, ?)";
 
             PreparedStatement preparedStatement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             preparedStatement.setString(1, employee.getFirstName());
@@ -63,7 +63,7 @@ public class EmployeeDAOPostgres implements EmployeeCRUD {
     public Employee getEmployee(int id) {
         try(Connection connection = DBConn.getConnection()){
             // sql query
-            String sql = "SELECT * FROM \"CompanyData\".employees WHERE id=?";
+            String sql = "SELECT * FROM \"companydata\".employees WHERE id=?";
 
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setInt(1, id);
@@ -101,7 +101,7 @@ public class EmployeeDAOPostgres implements EmployeeCRUD {
     public Employee updateEmployee(Employee employee) {
         try(Connection connection = DBConn.getConnection()){
             // sql query
-            String sql = "UPDATE \"CompanyData\".employees SET \"firstName\"=?, \"lastName\"=?, password=?, \"isManager\"=?, email=? WHERE id=?";
+            String sql = "UPDATE \"companydata\".employees SET \"firstname\"=?, \"lastname\"=?, password=?, \"ismanager\"=?, email=? WHERE id=?";
 
             PreparedStatement preparedStatement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             preparedStatement.setString(1, employee.getFirstName());
@@ -131,7 +131,7 @@ public class EmployeeDAOPostgres implements EmployeeCRUD {
     public boolean deleteEmployee(int id) {
         try(Connection connection = DBConn.getConnection()){
             // sql query
-            String sql = "DELETE FROM \"CompanyData\".employees WHERE id=?";
+            String sql = "DELETE FROM \"companydata\".employees WHERE id=?";
 
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setInt(1, id);
@@ -156,7 +156,7 @@ public class EmployeeDAOPostgres implements EmployeeCRUD {
     public Employee getEmployeeByEmail(String email) {
         try(Connection connection = DBConn.getConnection()){
             // sql query
-            String sql = "SELECT * FROM \"CompanyData\".employees WHERE email=?";
+            String sql = "SELECT * FROM \"companydata\".employees WHERE email=?";
 
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, email);

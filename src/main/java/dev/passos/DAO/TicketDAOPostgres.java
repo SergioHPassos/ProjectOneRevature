@@ -25,7 +25,7 @@ public class TicketDAOPostgres implements TicketCRUD {
     public Ticket createTicket(Ticket ticket) {
         try(Connection connection = DBConn.getConnection()){
             // sql query
-            String sql = "INSERT INTO \"CompanyData\".tickets VALUES(default, ?, ?, ?, ?, ?)";
+            String sql = "INSERT INTO \"companydata\".tickets VALUES(default, ?, ?, ?, ?, ?)";
 
             PreparedStatement preparedStatement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             preparedStatement.setDouble(1, ticket.getAmount());
@@ -64,7 +64,7 @@ public class TicketDAOPostgres implements TicketCRUD {
     public Ticket getTicket(int id) {
         try(Connection connection = DBConn.getConnection()){
             // sql query
-            String sql = "SELECT * FROM \"CompanyData\".tickets WHERE id=?";
+            String sql = "SELECT * FROM \"companydata\".tickets WHERE id=?";
 
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setInt(1, id);
@@ -102,7 +102,7 @@ public class TicketDAOPostgres implements TicketCRUD {
     public Ticket updateTicket(Ticket ticket) {
         try(Connection connection = DBConn.getConnection()){
             // sql query
-            String sql = "UPDATE \"CompanyData\".tickets SET amount=?, description=?, status=?, tickettype=? WHERE id=?";
+            String sql = "UPDATE \"companydata\".tickets SET amount=?, description=?, status=?, tickettype=? WHERE id=?";
 
             PreparedStatement preparedStatement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             preparedStatement.setDouble(1, ticket.getAmount());
@@ -131,7 +131,7 @@ public class TicketDAOPostgres implements TicketCRUD {
     public boolean deleteTicket(int id) {
         try(Connection connection = DBConn.getConnection()){
             // sql query
-            String sql = "DELETE FROM \"CompanyData\".tickets WHERE id=?";
+            String sql = "DELETE FROM \"companydata\".tickets WHERE id=?";
 
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setInt(1, id);
@@ -155,7 +155,7 @@ public class TicketDAOPostgres implements TicketCRUD {
     public ArrayList<Ticket> getAllPendingTickets() {
         try(Connection connection = DBConn.getConnection()){
             // sql query
-            String sql = "SELECT * FROM \"CompanyData\".tickets WHERE status='PENDING'";
+            String sql = "SELECT * FROM \"companydata\".tickets WHERE status='PENDING'";
 
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
 
@@ -197,7 +197,7 @@ public class TicketDAOPostgres implements TicketCRUD {
     public ArrayList<Ticket> getPendingTickets(int id) {
         try(Connection connection = DBConn.getConnection()){
             // sql query
-            String sql = "SELECT * FROM \"CompanyData\".tickets WHERE employee_id=?";
+            String sql = "SELECT * FROM \"companydata\".tickets WHERE employee_id=?";
 
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setInt(1, id);

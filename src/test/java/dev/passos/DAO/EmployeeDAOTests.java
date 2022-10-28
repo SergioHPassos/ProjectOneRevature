@@ -13,7 +13,7 @@ public class EmployeeDAOTests {
     @Test
     @Order(1)
     void create_employee_test(){
-        Employee testingEmployee = new Employee(1, "General", "Finger", "ultrahardpassword", false, "email@yesemail.com");
+        Employee testingEmployee = new Employee(1, "General", "Finger", "ultrahardpassword", false, "testing@yesemail.com");
         Employee savedEmployee = EmployeeDAOPostgres.getEmployeeDAOPostgres().createEmployee(testingEmployee);
 
         // assert
@@ -28,7 +28,7 @@ public class EmployeeDAOTests {
     @Order(2)
     void get_employee_test(){
         // get employee
-        Employee employee = EmployeeDAOPostgres.getEmployeeDAOPostgres().getEmployee(8);
+        Employee employee = EmployeeDAOPostgres.getEmployeeDAOPostgres().getEmployee(1);
 
         // assert
         Assertions.assertNotEquals(9, employee.getId());
@@ -39,7 +39,7 @@ public class EmployeeDAOTests {
     @Order(3)
     void update_employee_test(){
         // get employee
-        Employee employee = EmployeeDAOPostgres.getEmployeeDAOPostgres().getEmployee(8);
+        Employee employee = EmployeeDAOPostgres.getEmployeeDAOPostgres().getEmployee(1);
 
         // update
         employee.setFirstName("Barnical");
@@ -57,7 +57,7 @@ public class EmployeeDAOTests {
     @Test
     @Order(4)
     void delete_employee_test(){
-        Employee testingEmployee = new Employee(1, "General", "Finger", "ultrahardpassword", false, "email@yesemail.com");
+        Employee testingEmployee = new Employee(1, "General", "Finger", "ultrahardpassword", false, "tester@yesemail.com");
         Employee savedEmployee = EmployeeDAOPostgres.getEmployeeDAOPostgres().createEmployee(testingEmployee);
 
         // delete ticket
