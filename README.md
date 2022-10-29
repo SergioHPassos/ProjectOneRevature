@@ -1,9 +1,6 @@
 # ProjectOneRevature
 develop a backend with Java, Javalin, JDBC, and Postgres, finally test the API.
 
-# Project Name
-> Outline a brief description of your project.
-> Live demo [_here_](https://www.example.com). <!-- If you have the project hosted somewhere, include the link here. -->
 
 ## Table of Contents
 * [General Info](#general-information)
@@ -11,12 +8,9 @@ develop a backend with Java, Javalin, JDBC, and Postgres, finally test the API.
 * [Features](#features)
 * [Screenshots](#screenshots)
 * [Setup](#setup)
-* [Usage](#usage)
 * [Project Status](#project-status)
 * [Room for Improvement](#room-for-improvement)
-* [Acknowledgements](#acknowledgements)
 * [Contact](#contact)
-<!-- * [License](#license) -->
 
 
 ## General Information
@@ -43,20 +37,13 @@ List the ready features here:
 
 ## Screenshots
 ![basic data flow for backend](./diagrams/dataFlow.png)
+![data design](./diagrams/tablesDiagram.png)
+![project tree structure](./diagrams/projectStructure.png)
 <!-- If you have screenshots you'd like to share, include them here. -->
 
 
 ## Setup
-What are the project requirements/dependencies? Where are they listed? A requirements.txt or a Pipfile.lock file perhaps? Where is it located?
-
-Proceed to describe how to install / setup one's local environment / get started with the project.
-
-
-## Usage
-How does one go about using it?
-Provide various use cases and code examples here.
-
-`write-your-code-here`
+download and install and ide of your own choiceing. Clone the repo and since this is a maven project, remember to inject those dependcies. Additionally, you would need to access the "DBConn.java" file and updated the information reflecting your postgres connection info, check the port, username, and password! Than you should be able to run both of the applications and use a tool such as postman to send a request.
 
 
 ## Project Status
@@ -67,20 +54,14 @@ Project is: _in progress_ / _complete_ / _no longer being worked on_. If you are
 Include areas you believe need improvement / could be improved. Also add TODOs for future development.
 
 Room for improvement:
-- Improvement to be done 1
-- Improvement to be done 2
+- definitly need to clean the code up
+- service testing
+- endpoint testing
+- frontend?
 
 To do:
-- Feature to be added 1
-- Feature to be added 2
+- maybe you fork and contact for collab?
 
 
 ## Contact
 Created by [@sergdev](https://www.sergdev.com/) - feel free to contact me!
-
-
-<!-- Optional -->
-<!-- ## License -->
-<!-- This project is open source and available under the [... License](). -->
-
-<!-- You don't have to include all sections - just the one's relevant to your project -->
